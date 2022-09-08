@@ -7,7 +7,7 @@
     <parent>
         <groupId>me.chrisanabo</groupId>
         <artifactId>ready-api-extension</artifactId>
-        <version>1.0</version>
+        <version>1.0.0-BUILD</version>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
