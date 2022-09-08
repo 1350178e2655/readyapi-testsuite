@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project id="a0e58255-88ef-484c-8be3-f54131efae1d" created="3.40.2" activeEnvironment="Default environment" name="Partior-ITS" resourceRoot="" updated="3.40.2 2022-07-27T09:18:31Z" xmlns:con="http://eviware.com/soapui/config">
+  <con:settings/>
+  <con:interface xsi:type="con:RestService" id="10e9bdac-df1a-4fa9-a57e-afb38995f746" wadlVersion="http://wadl.dev.java.net/2009/02" name="Access-Manager" type="rest" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <con:settings/>
+    <con:definitionCache type="TEXT" rootPart=""/>
+    <con:endpoints>
+      <con:endpoint>http://localhost:8080</con:endpoint>
+    </con:endpoints>
+    <con:resource name="inbound/send" path="/inbound/send" id="2924e16d-56c1-46d8-a3b0-75fdf8756420">
+      <con:settings/>
+      <con:parameters/>
+      <con:method name="sendToAccessManager" id="327f3d9c-7d06-4f66-a154-cacdfe1ed234" method="POST">
+        <con:settings/>
+        <con:parameters>
+          <con:parameter required="true">
+            <con:name>responseBody</con:name>
+            <con:value/>
+            <con:style>QUERY</con:style>
+            <con:default/>
+          </con:parameter>
+        </con:parameters>
+        <con:request name="inbound/send" id="189fe2b8-1371-44e1-8347-5f600be1eff3" mediaType="application/x-www-form-urlencoded" postQueryString="true">
+          <con:settings>
+            <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+          </con:settings>
+          <con:endpoint>http://localhost:8080</con:endpoint>
+          <con:request/>
+          <con:credentials>
+            <con:authType>No Authorization</con:authType>
+          </con:credentials>
+          <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+          <con:parameters/>
+          <con:parameterOrder>
+            <con:entry>responseBody</con:entry>
+          </con:parameterOrder>
+        </con:request>
+      </con:method>
+    </con:resource>
+  </con:interface>
+  <con:interface xsi:type="con:RestService" id="9e9ea9d2-5312-4dee-a49c-058276c934b2" wadlVersion="http://wadl.dev.java.net/2009/02" name="Bank-Endpoint" type="rest" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <con:settings/>
+    <con:definitionCache type="TEXT" rootPart=""/>
+    <con:endpoints>
+      <con:endpoint>http://localhost:8081</con:endpoint>
+    </con:endpoints>
+    <con:resource name="bank-callback" path="/bank/messages" id="4bb7e754-fc04-43c7-b95b-bc691bbe6b0e">
+      <con:settings/>
+      <con:parameters/>
+      <con:method name="get-message" id="3ac451d9-a3f2-4d13-b737-18cb7ad4405d" method="GET">
+        <con:settings/>
+        <con:parameters>
+          <con:parameter>
+            <con:name>msgId</con:name>
+            <con:value/>
+            <con:style>QUERY</con:style>
+            <con:default/>
+            <con:path xsi:nil="true"/>
+            <con:description xsi:nil="true"/>
+          </con:parameter>
+        </con:parameters>
+        <con:request name="Request 1" id="d78a6ae2-968b-4db9-81b0-b097e52e9d08" mediaType="application/json" postQueryString="false">
+          <con:settings>
+            <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+          </con:settings>
+          <con:endpoint>http://localhost:8081</con:endpoint>
+          <con:request/>
+          <con:credentials>
+            <con:authType>No Authorization</con:authType>
+          </con:credentials>
+          <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+          <con:parameters>
+            <con:entry key="msgId" value=""/>
+          </con:parameters>
+          <con:parameterOrder>
+            <con:entry>msgId</con:entry>
+          </con:parameterOrder>
+        </con:request>
+      </con:method>
+    </con:resource>
+  </con:interface>
+  <con:testSuite id="776416c2-4d3e-4132-9a95-19dd97f6c2fc" name="Integration-Testing">
+    <con:settings/>
+    <con:runType>SEQUENTIAL</con:runType>
+    <con:testCase id="d18b766b-ad30-4b2b-82fe-fafd74ef2968" discardOkResults="false" failOnError="true" failTestCaseOnErrors="true" keepSession="false" name="Deposit" searchProperties="true" timeout="0">
+      <con:settings/>
+      <con:testStep type="properties" name="shared-data" id="92d870d2-c2fe-4a67-b0af-45342942db85">
+        <con:settings/>
+        <con:config xsi:type="con:PropertiesStep" saveFirst="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:properties>
+            <con:property>
+              <con:name>issuer</con:name>
+              <con:value/>
+            </con:property>
+            <con:property>
+              <con:name>msgid</con:name>
+              <con:value/>
+            </con:property>
+            <con:property>
+              <con:name>msgbody</con:name>
+              <con:value/>
+            </con:property>
+          </con:properties>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="datasource" name="postgres-test-data-input" id="7cb3f870-c167-4eac-b6e9-65392f5fc8f3">
+        <con:settings>
+          <con:setting id="com.eviware.soapui.impl.wsdl.teststeps.datasource.DataSourceContainer@prepared-properties">&lt;xml-fragment/></con:setting>
+        </con:settings>
+        <con:config xsi:type="con:DataSourceStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:dataSource type="JDBC">
+            <con:configuration>
+              <driver/>
+              <connstr/>
+              <pass/>
+              <Connection/>
+              <query/>
+              <fetchSize/>
+              <stored-procedure>false</stored-procedure>
+            </con:configuration>
+          </con:dataSource>
+          <con:shared>true</con:shared>
+          <con:restartShared>true</con:restartShared>
+          <con:completeLastOperation>true</con:completeLastOperation>
+          <con:restartOnRun>true</con:restartOnRun>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="groovy" name="encrypt-message" id="514add6e-59d2-4e99-be0b-8b81caa3b591">
+        <con:settings/>
+        <con:config>
+          <script>import com.partior.security.*
+
+def nimbusJose = new NimbusJose();
+
+log.info( context.expand( '${postgres-data-input#issuer}') )
+
+def issuer_id = context.expand( '${postgres-data-input#issuer}').trim()
+
+context.testCase.getTestStepByName("shared-data").setPropertyValue("msg-body", 
+	nimbusJose.readyApiEncryptMsgToPartior( context.expand( '${postgres-data-input#msg_body}'), 
+	issuer_id  ) )</script>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="restrequest" name="sendCamt050" id="8f8df1b1-2298-48b2-a550-c4c90d6cf06a">
+        <con:settings/>
+        <con:config service="Access-Manager" resourcePath="/inbound/send" methodName="sendToAccessManager" xsi:type="con:RestRequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:restRequest name="sendCamt050" id="189fe2b8-1371-44e1-8347-5f600be1eff3" mediaType="text/plain" postQueryString="true">
+            <con:settings>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+            </con:settings>
+            <con:endpoint>http://localhost:8080</con:endpoint>
+            <con:request/>
+            <con:assertion type="Valid HTTP Status Codes" id="6378b3be-488f-434b-91f8-8b21fa4d1791" name="Valid HTTP Status Codes">
+              <con:settings/>
+              <con:configuration>
+                <codes>200</codes>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="Response SLA Assertion" id="8c320b46-1fd9-457d-a93b-ef3823d88d7d" name="Response SLA">
+              <con:configuration>
+                <SLA>5000</SLA>
+              </con:configuration>
+            </con:assertion>
+            <con:credentials>
+              <con:selectedAuthProfile>No Authorization</con:selectedAuthProfile>
+              <con:authType>No Authorization</con:authType>
+            </con:credentials>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:parameters>
+              <con:entry key="responseBody" value="${shared-data#msgbody}"/>
+            </con:parameters>
+            <con:parameterOrder>
+              <con:entry>responseBody</con:entry>
+            </con:parameterOrder>
+          </con:restRequest>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="restrequest" name="waitForAdmi007" id="53e6a81d-a51d-4428-bb37-1d43383483b9">
+        <con:settings/>
+        <con:config service="Bank-Endpoint" methodName="get-message" resourcePath="/bank/messages" xsi:type="con:RestRequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:restRequest name="waitForAdmi007" id="199d8979-dc69-4b21-81ba-6d97bcc47173" mediaType="application/json">
+            <con:settings>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+            </con:settings>
+            <con:encoding>UTF-8</con:encoding>
+            <con:endpoint>http://localhost:8081</con:endpoint>
+            <con:request/>
+            <con:assertion type="Valid HTTP Status Codes" id="cc75e705-eccb-4c97-a98c-8ea3784aa4b6" name="Valid HTTP Status Codes">
+              <con:settings/>
+              <con:configuration>
+                <codes>200</codes>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="Response SLA Assertion" id="1eec019f-6293-4938-9fbf-73a3f40688c2" name="Response SLA">
+              <con:configuration>
+                <SLA>200</SLA>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="GroovyScriptAssertion" id="54e0b73f-5ba4-471d-9386-0d90015324dc" name="checkMsgAlreadyArrive">
+              <con:configuration>
+                <scriptText>import com.partior.security.*;
+
+def messagePayloadHandler = testRunner.metaClass.savedObject;
+
+def response = messagePayloadHandler.waitForAdmi007(request.context);
+
+if( response != null ) {
+	// do assertion
+} else {
+	 context.getTestRunner().gotoStepByName('waitForAdmi007') 
+}</scriptText>
+              </con:configuration>
+            </con:assertion>
+            <con:credentials>
+              <con:selectedAuthProfile>No Authorization</con:selectedAuthProfile>
+              <con:authType>No Authorization</con:authType>
+            </con:credentials>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:parameters>
+              <con:entry key="msgId" value="${shared-data#msgid}"/>
+            </con:parameters>
+          </con:restRequest>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="restrequest" name="waitForCamt025" id="f0aeb402-9834-4c00-bf71-807f2e186f96">
+        <con:settings/>
+        <con:config service="Bank-Endpoint" methodName="get-message" resourcePath="/bank/messages" xsi:type="con:RestRequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:restRequest name="waitForCamt025" id="69f0fe56-e1a2-4cb5-b789-c738bf189e99" mediaType="application/json">
+            <con:settings>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+            </con:settings>
+            <con:encoding>UTF-8</con:encoding>
+            <con:endpoint>http://localhost:8081</con:endpoint>
+            <con:request/>
+            <con:assertion type="Valid HTTP Status Codes" id="e482604f-f403-4173-8a30-9a2398f85f4a" name="Valid HTTP Status Codes">
+              <con:settings/>
+              <con:configuration>
+                <codes>200</codes>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="Response SLA Assertion" id="2fdf4d30-f5ee-4a2d-954c-a0a4331b6117" name="Response SLA">
+              <con:configuration>
+                <SLA>200</SLA>
+              </con:configuration>
+            </con:assertion>
+            <con:credentials>
+              <con:selectedAuthProfile>No Authorization</con:selectedAuthProfile>
+              <con:authType>No Authorization</con:authType>
+            </con:credentials>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:parameters>
+              <con:entry key="msgId" value="${shared-data#msgid}"/>
+            </con:parameters>
+          </con:restRequest>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="datasourceloop" name="loop-over-test-data-input" id="61533e40-7c7a-4c8f-8f2d-b3bb1b387aae">
+        <con:settings/>
+        <con:config>
+          <dataSourceStep/>
+          <targetStep/>
+          <discardResults>true</discardResults>
+        </con:config>
+      </con:testStep>
+      <con:setupScript>import me.chrisanabo.jetty.*;
+
+log.info("Test Suite Start TEST JETTY");
+
+PBankCallbackMain jetty = new PBankCallbackMain();
+
+jetty.startServerFromRunnable(8080);
+
+context.bankEndpoint = jetty;</con:setupScript>
+      <con:tearDownScript>import me.chrisanabo.jetty.*;
+log.info("Test Suite End");
+def bankEndpoint =  context.bankEndpoint;
+bankEndpoint.stopServerFromRunnable();
+log.info("Test Suite End - Jetty Server Stop");</con:tearDownScript>
+      <con:properties/>
+      <con:reportParameters/>
+    </con:testCase>
+    <con:testCase id="c97ccd76-47ba-466b-ba83-ccd7c2466801" discardOkResults="false" failOnError="true" failTestCaseOnErrors="true" keepSession="false" name="Withdrawal" searchProperties="true" timeout="0">
+      <con:settings/>
+      <con:properties/>
+      <con:reportParameters/>
+    </con:testCase>
+    <con:properties/>
+    <con:reportParameters/>
+  </con:testSuite>
+  <con:restMockService id="134c02a0-c782-4fe1-85e1-981fa8fa2b70" port="8080" path="/" host="localhost" name="Partior-Node-Simulator">
+    <con:settings/>
+    <con:properties/>
+    <con:constraints>
+      <con:congestion>0</con:congestion>
+      <con:inputBandwidth>-1</con:inputBandwidth>
+      <con:outputBandwidth>-1</con:outputBandwidth>
+      <con:maxThreadPoolCapacity>20</con:maxThreadPoolCapacity>
+      <con:coreThreadPoolCapacity>5</con:coreThreadPoolCapacity>
+      <con:virtError>
+        <con:start>0</con:start>
+        <con:endless>true</con:endless>
+      </con:virtError>
+    </con:constraints>
+    <con:headerValidator type="NONE"/>
+  </con:restMockService>
+  <con:properties/>
+  <con:wssContainer/>
+  <con:databaseConnectionContainer/>
+  <con:jmsConnectionContainer/>
+  <con:oAuth2ProfileContainer/>
+  <con:oAuth1ProfileContainer/>
+  <con:reporting>
+    <con:reportTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:parameters/>
+    <con:parameters/>
+  </con:reporting>
+  <con:reporting/>
+  <con:eventHandlers type="RequestFilter.filterRequest" name="RequestFilter.filterRequest">
+    <con:script>// Sample event script to add custom HTTP header to all outgoing REST, SOAP and HTTP(S) calls
+// This code is often used for adding custom authentication to ReadyAPI functional tests
+
+// If hardcoding the token, uncomment and change line 5
+// token = '4567'
+
+// If your token is parameterized in Project level custom property, uncomment line 8
+// token = request.parent.testCase.testSuite.project.getProperty('auth_token').getValue()
+
+// To modify all outgoing calls, remove comments from lines 11 to 16
+// headers = request.requestHeaders
+// if (headers.containsKey('auth_token2') == false) {
+//   headers.put('auth_token2', token)
+//   request.requestHeaders = headers
+// }</con:script>
+  </con:eventHandlers>
+  <con:eventHandlers type="TestRunListener.afterStep" name="TestRunListener.afterStep">
+    <con:script>// Save all test step results into files
+// Change the directory path in line 5 to a location where you want to store details
+// then uncomment lines 5 to 10
+
+// filePath = 'C:\\tempOutputDirectory\\'
+// fos = new java.io.FileOutputStream(filePath + testStepResult.testStep.label + '.txt', true)
+// pw = new java.io.PrintWriter(fos)
+// testStepResult.writeTo(pw)
+// pw.close()
+// fos.close()</con:script>
+  </con:eventHandlers>
+  <con:authRepository/>
+  <con:tags/>
+</con:soapui-project>
